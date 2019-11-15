@@ -1,26 +1,14 @@
-package com.vinpin.coroutinsdemo.network.http
+package com.eisoo.libcommon.retrofit
 
 import android.annotation.SuppressLint
 import java.io.IOException
 import java.io.InputStream
-import java.security.KeyStore
-import java.security.KeyStoreException
-import java.security.NoSuchAlgorithmException
-import java.security.SecureRandom
-import java.security.UnrecoverableKeyException
+import java.security.*
 import java.security.cert.Certificate
 import java.security.cert.CertificateException
 import java.security.cert.CertificateFactory
 import java.security.cert.X509Certificate
-
-import javax.net.ssl.HostnameVerifier
-import javax.net.ssl.KeyManager
-import javax.net.ssl.KeyManagerFactory
-import javax.net.ssl.SSLContext
-import javax.net.ssl.SSLSocketFactory
-import javax.net.ssl.TrustManager
-import javax.net.ssl.TrustManagerFactory
-import javax.net.ssl.X509TrustManager
+import javax.net.ssl.*
 
 /**
  * author : vinpin
@@ -73,7 +61,7 @@ object SSLHelper {
     fun getSSLContext(caIn: InputStream): SSLContext {
         try {
             val trustManagers =
-                getTrustManagers(caIn)
+                    getTrustManagers(caIn)
             val sslContext = SSLContext.getInstance("TLS")
             sslContext.init(null, trustManagers, null)
             return sslContext
@@ -92,7 +80,7 @@ object SSLHelper {
     fun getSSLContext(tsIn: InputStream, tsPwd: String): SSLContext {
         try {
             val trustManagers =
-                getTrustManagers(tsIn, tsPwd)
+                    getTrustManagers(tsIn, tsPwd)
             val sslContext = SSLContext.getInstance("TLS")
             sslContext.init(null, trustManagers, null)
             return sslContext
@@ -112,9 +100,9 @@ object SSLHelper {
     fun getSSLContext(caIn: InputStream, ksIn: InputStream, ksPwd: String): SSLContext {
         try {
             val keyManagers =
-                getKeyManagers(ksIn, ksPwd)
+                    getKeyManagers(ksIn, ksPwd)
             val trustManagers =
-                getTrustManagers(caIn)
+                    getTrustManagers(caIn)
             val sslContext = SSLContext.getInstance("TLS")
             sslContext.init(keyManagers, trustManagers, null)
             return sslContext
@@ -138,9 +126,9 @@ object SSLHelper {
     ): SSLContext {
         try {
             val keyManagers =
-                getKeyManagers(ksIn, ksPwd)
+                    getKeyManagers(ksIn, ksPwd)
             val trustManagers =
-                getTrustManagers(tsIn, tsPwd)
+                    getTrustManagers(tsIn, tsPwd)
             val sslContext = SSLContext.getInstance("TLS")
             sslContext.init(keyManagers, trustManagers, null)
             return sslContext

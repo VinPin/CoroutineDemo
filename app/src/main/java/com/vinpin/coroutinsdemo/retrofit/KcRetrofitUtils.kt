@@ -1,8 +1,11 @@
-package com.vinpin.coroutinsdemo.network
+package com.vinpin.coroutinsdemo.retrofit
 
+import com.eisoo.libcommon.retrofit.KcOkHttpClient
+import com.eisoo.libcommon.retrofit.KcRetrofit
+import com.vinpin.coroutinsdemo.BaseApplication
 import com.vinpin.coroutinsdemo.BuildConfig
 import okhttp3.OkHttpClient
-import java.util.HashMap
+import java.util.*
 
 /**
  * author : vinpin
@@ -14,8 +17,10 @@ object KcRetrofitUtils {
 
     private var defaultKcRetrofit: KcRetrofit? = null
 
+    fun getContext() = BaseApplication.getContext()
+
     /**
-     * 获取默认的KcRetrofit实例，只会创建一次实例。
+     * 获取默认的KcRetrofit实例，该实例只会被创建一次。可以作为全局使用，一般不再修改其属性。
      */
     fun getDefault(): KcRetrofit {
         if (defaultKcRetrofit == null) {
@@ -32,7 +37,7 @@ object KcRetrofitUtils {
     }
 
     /**
-     * 使用默认的KcRetrofit实例创建HTTP API接口
+     * 使用默认的KcRetrofit实例创建API接口
      */
     fun <T> create(cls: Class<T>): T {
         return getDefault().create(cls)

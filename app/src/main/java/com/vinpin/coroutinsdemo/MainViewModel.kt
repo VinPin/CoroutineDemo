@@ -2,16 +2,11 @@ package com.vinpin.coroutinsdemo
 
 import android.app.Application
 import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.vinpin.coroutinsdemo.network.ApiService
-import com.vinpin.coroutinsdemo.network.KcRetrofitUtils
-import com.vinpin.coroutinsdemo.network.MainRepository
 import kotlinx.coroutines.*
-import retrofit2.Response
 
 /**
  * author : vinpin
@@ -21,7 +16,8 @@ import retrofit2.Response
  */
 class MainViewModel(application: Application) : AndroidViewModel(application) {
 
-    private var mMainRepository: MainRepository = MainRepository()
+    private var mMainRepository: MainRepository =
+        MainRepository()
 
     private val mToastMsg: MutableLiveData<String> = MutableLiveData()
 

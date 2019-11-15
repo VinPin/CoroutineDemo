@@ -1,8 +1,9 @@
-package com.vinpin.coroutinsdemo.network
+package com.eisoo.libcommon.retrofit
 
 import android.util.Log
-import com.vinpin.coroutinsdemo.network.http.SSLHelper
-import com.vinpin.coroutinsdemo.network.interceptor.HeaderInterceptor
+import com.vinpin.coroutinsdemo.retrofit.ApiService
+import com.vinpin.coroutinsdemo.retrofit.HeaderInterceptor
+import com.vinpin.coroutinsdemo.retrofit.KcRetrofitUtils
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -22,8 +23,8 @@ class KcRetrofit {
 
     private val mRetrofitBuilder: Retrofit.Builder by lazy {
         Retrofit.Builder()
-            .addConverterFactory(ScalarsConverterFactory.create())
-            .baseUrl(baseUrl)
+                .addConverterFactory(ScalarsConverterFactory.create())
+                .baseUrl(baseUrl)
     }
 
     var baseUrl: String = ApiService.BASE_URL
@@ -90,7 +91,7 @@ class KcOkHttpClient {
 
     fun debugLog(enable: Boolean): KcOkHttpClient {
         if (enable) {
-            val interceptor = HttpLoggingInterceptor { msg -> Log.d("RcRetrofit", msg) }
+            val interceptor = HttpLoggingInterceptor { msg -> Log.d("RcRetrofitUtils", msg) }
             interceptor.level = HttpLoggingInterceptor.Level.BODY
             mOkHttpBuilder.addInterceptor(interceptor)
         }
@@ -99,14 +100,14 @@ class KcOkHttpClient {
 
     fun sslSocketFactory(): KcOkHttpClient {
         mOkHttpBuilder.sslSocketFactory(SSLHelper.sslSocketFactory, SSLHelper.trustManager)
-            .hostnameVerifier(SSLHelper.hostnameVerifier)
+                .hostnameVerifier(SSLHelper.hostnameVerifier)
         return this
     }
 
     fun sslSocketFactory(caIn: InputStream, ksIn: InputStream, ksPwd: String): KcOkHttpClient {
         val sslContext = SSLHelper.getSSLContext(caIn, ksIn, ksPwd)
         mOkHttpBuilder.sslSocketFactory(sslContext.socketFactory)
-            .hostnameVerifier(SSLHelper.hostnameVerifier)
+                .hostnameVerifier(SSLHelper.hostnameVerifier)
         return this
     }
 
